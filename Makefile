@@ -6,8 +6,11 @@ OUT_FILE?=./deliverable.zip
 # get absolute path of zipfile to deliver
 DELIVERABLE=$(abspath $(OUT_FILE))
 
+PYTHON_VER=3.7
+
 # Install all the libs locally
 install:
+	pipenv --python=${PYTHON_VER}
 	pipenv install --three
 
 # Destroy the virtualenv
@@ -25,5 +28,5 @@ clean:
 # Rebuild the delivrable
 build:
 	$(eval VENV = $(shell pipenv --venv))
-	cd ${VENV}/lib/python3.6/site-packages && zip -r9 ${DELIVERABLE} ./*
+	cd ${VENV}/lib/python${PYTHON_VER}/site-packages && zip -r9 ${DELIVERABLE} ./*
 	zip -r9 ${DELIVERABLE} *.py
